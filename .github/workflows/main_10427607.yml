@@ -9,36 +9,37 @@
 
 
         
-name: Build and deploy Python app to Azure Web App - 10427607
+name: Build and deploy Python app to Azure Web App - 10427607 
+# Seta o nome do CI/CD
 
-on:
-  push:
-    branches:
+on: # No
+  push: # Push
+    branches: # Na branch Main
       - main
   workflow_dispatch:
 
-jobs:
+jobs: # Trabalhos ao serem executados
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest # roda no ubunto
     permissions:
-      contents: read #This is required for actions/checkout
+      contents: read #This is required for actions/checkout # le o checkout pra ver se ta tudo certo
         
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set up Python version
-        uses: actions/setup-python@v5
+      - name: Set up Python version #Nome
+        uses: actions/setup-python@v5 # Faz o setup do python
         with:
           python-version: '3.14'
 
       - name: Mostrar mensagem inicial
-        run: echo "Iniciando o Deploy do meu projeto"
+        run: echo "Iniciando o Deploy do meu projeto" # Mostra no console que esta fazendo o deploy
 
         
       # 🛠️ Local Build Section (Optional)
       # The following section in your workflow is designed to catch build issues early on the client side, before deployment. This can be helpful for debugging and validation. However, if this step significantly increases deployment time and early detection is not critical for your workflow, you may remove this section to streamline the deployment process.
-      - name: Create and Start virtual environment and Install dependencies
-        run: |
+      - name: Create and Start virtual environment and Install dependencies 
+        run: | # Cria e inicia a maquina virtual
           python -m venv antenv
           source antenv/bin/activate
           pip install -r requirements.txt
