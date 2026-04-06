@@ -59,6 +59,7 @@ jobs: # Trabalhos ao serem executados
       # 2. Refer to sample workflows for alternative deployment strategies: https://github.com/Azure/actions-workflow-samples/tree/master/AppService
       
 
+        # na hora do deploy ele checa se ja esta buildado
   deploy:
     runs-on: ubuntu-latest
     needs: build
@@ -68,7 +69,7 @@ jobs: # Trabalhos ao serem executados
 
     steps:
       - name: Download artifact from build job
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v4 # cria os artefatos da build 
         with:
           name: python-app
       
@@ -76,13 +77,13 @@ jobs: # Trabalhos ao serem executados
       - name: Login to Azure
         uses: azure/login@v2
         with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_CFC2CB6535174A568FF904EB8DB7B71F }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_27FCDB920CC9409D9BB39CE53BDC0667 }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_7D44EA5129B34662B4AC7E0AC52895C6 }}
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_CFC2CB6535174A568FF904EB8DB7B71F }} # Id da aplicacao
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_27FCDB920CC9409D9BB39CE53BDC0667 }} # ID da instancia criada 
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_7D44EA5129B34662B4AC7E0AC52895C6 }} # ID do meu subscription
 
       - name: 'Deploy to Azure Web App'
-        uses: azure/webapps-deploy@v3
-        id: deploy-to-webapp
+        uses: azure/webapps-deploy@v3 #dentro do webapps executa o deploy
+        id: deploy-to-webapp 
         with:
           app-name: '10427607'
           slot-name: 'Production'
